@@ -1,0 +1,36 @@
+{
+	"schemaVersion": 1,
+	"id": "notfullybroken_mt",
+	"version": "${version}",
+	"name": "NotFullyBroken",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"MARS Team MC",
+		"MDen",
+		"cocer"
+	],
+	"contact": {
+		"homepage": "https://github.com/MARSTeamMC/NotFullyBroken",
+		"sources": "https://github.com/MARSTeamMC/NotFullyBroken"
+	},
+	"license": "BSD 2-Clause License",
+	"icon": "assets/notfullybroken_mt/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.mars.notfullybroken_mt.NotFullyBroken"
+		]
+	},
+	"mixins": [
+		"notfullybroken_mt.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.18.1",
+		"minecraft": ">=1.21 <1.21.9",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
