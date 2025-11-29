@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "notfullybroken_mt:item/stone_pickaxe_broken"
+  }
+}
