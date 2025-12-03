@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "notfullybroken_mt:item/mace_broken"
+  }
+}
