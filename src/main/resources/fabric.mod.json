@@ -19,6 +19,9 @@
 	"entrypoints": {
 		"main": [
 			"net.mars.notfullybroken_mt.NotFullyBroken"
+		],
+		"fabric-datagen": [
+			"net.mars.notfullybroken_mt.NotFullyBrokenDataGenerator"
 		]
 	},
 	"mixins": [
@@ -26,7 +29,7 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.16.13",
-		"minecraft": ">=1.21.2 <=1.21.10",
+		"minecraft": ">=1.21.2 <=1.21.8",
 		"java": ">=21",
 		"fabric-api": "*"
 	},
