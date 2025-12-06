@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/crossbow",
+  "textures": {
+    "layer0": "notfullybroken_mt:item/crossbow_broken"
+  }
+}

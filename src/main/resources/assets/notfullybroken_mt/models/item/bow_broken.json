@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/bow",
+  "textures": {
+    "layer0": "notfullybroken_mt:item/bow_broken"
+  }
+}

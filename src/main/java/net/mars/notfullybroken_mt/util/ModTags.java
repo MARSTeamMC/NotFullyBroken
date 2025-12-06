@@ -5,55 +5,59 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 public class ModTags {
     public static class Items {
         public static final TagKey<Item> HAS_BROKEN_STATE = createTag("has_broken_state");
 
-        public static final List<String> TOOLS_WITH_BROKEN_STATE = List.of(
-                "diamond_pickaxe",
-                "stone_pickaxe",
-                "golden_pickaxe",
-                "netherite_pickaxe",
-                "wooden_pickaxe",
-                "iron_pickaxe",
+        public static final List<@NotNull Item> TOOLS_WITH_BROKEN_STATE = List.of(
+                net.minecraft.item.Items.DIAMOND_PICKAXE,
+                net.minecraft.item.Items.DIAMOND_AXE,
+                net.minecraft.item.Items.DIAMOND_SHOVEL,
+                net.minecraft.item.Items.DIAMOND_HOE,
+                net.minecraft.item.Items.DIAMOND_SWORD,
 
-                "diamond_axe",
-                "stone_axe",
-                "golden_axe",
-                "netherite_axe",
-                "wooden_axe",
-                "iron_axe",
+                net.minecraft.item.Items.STONE_PICKAXE,
+                net.minecraft.item.Items.STONE_AXE,
+                net.minecraft.item.Items.STONE_SHOVEL,
+                net.minecraft.item.Items.STONE_HOE,
+                net.minecraft.item.Items.STONE_SWORD,
 
-                "diamond_shovel",
-                "stone_shovel",
-                "golden_shovel",
-                "netherite_shovel",
-                "wooden_shovel",
-                "iron_shovel",
+                net.minecraft.item.Items.GOLDEN_PICKAXE,
+                net.minecraft.item.Items.GOLDEN_AXE,
+                net.minecraft.item.Items.GOLDEN_SHOVEL,
+                net.minecraft.item.Items.GOLDEN_HOE,
+                net.minecraft.item.Items.GOLDEN_SWORD,
 
-                "diamond_hoe",
-                "stone_hoe",
-                "golden_hoe",
-                "netherite_hoe",
-                "wooden_hoe",
-                "iron_hoe",
+                net.minecraft.item.Items.NETHERITE_PICKAXE,
+                net.minecraft.item.Items.NETHERITE_AXE,
+                net.minecraft.item.Items.NETHERITE_SHOVEL,
+                net.minecraft.item.Items.NETHERITE_HOE,
+                net.minecraft.item.Items.NETHERITE_SWORD,
 
-                "diamond_sword",
-                "stone_sword",
-                "golden_sword",
-                "netherite_sword",
-                "wooden_sword",
-                "iron_sword",
+                net.minecraft.item.Items.WOODEN_PICKAXE,
+                net.minecraft.item.Items.WOODEN_AXE,
+                net.minecraft.item.Items.WOODEN_SHOVEL,
+                net.minecraft.item.Items.WOODEN_HOE,
+                net.minecraft.item.Items.WOODEN_SWORD,
 
-                "mace",
-                "trident",
-                "bow",
-                "crossbow",
-                "fishing_rod",
-                "flint_and_steel",
-                "brush"
+                net.minecraft.item.Items.IRON_PICKAXE,
+                net.minecraft.item.Items.IRON_AXE,
+                net.minecraft.item.Items.IRON_SHOVEL,
+                net.minecraft.item.Items.IRON_HOE,
+                net.minecraft.item.Items.IRON_SWORD,
+
+                net.minecraft.item.Items.MACE,
+                net.minecraft.item.Items.TRIDENT,
+                net.minecraft.item.Items.BOW,
+                net.minecraft.item.Items.CROSSBOW,
+                net.minecraft.item.Items.FISHING_ROD,
+                net.minecraft.item.Items.FLINT_AND_STEEL,
+                net.minecraft.item.Items.BRUSH,
+                net.minecraft.item.Items.SHEARS
         );
 
         private static TagKey<Item> createTag(String name) {
