@@ -3,7 +3,7 @@
 	"id": "notfullybroken_mt",
 	"version": "${version}",
 	"name": "NotFullyBroken",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "In Minecraft, you can easily break your best tools if something distracts you. NotFullyBroken fixes that. Now, all tools with mending and 0 durability will change to their broken state, in which you can't use them. To move them out of the broken state, you simply recover them using XP.",
 	"authors": [
 		"MARS Team MC",
 		"MDen",
