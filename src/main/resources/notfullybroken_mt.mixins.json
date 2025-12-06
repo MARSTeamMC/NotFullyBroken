@@ -3,9 +3,8 @@
 	"package": "net.mars.notfullybroken_mt.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ItemMixin",
-		"ItemStackMixin",
-		"AxeItemMixin"
+		"ExperienceOrbEntityMixin",
+		"ItemStackMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

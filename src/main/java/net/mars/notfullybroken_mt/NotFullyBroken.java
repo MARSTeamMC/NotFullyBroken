@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
+import net.mars.notfullybroken_mt.item.ModItems;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +18,8 @@ public class NotFullyBroken implements ModInitializer {
 	public void onInitialize() {
 		ModContainer mod = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow(null);
 		String version = mod.getMetadata().getVersion().getFriendlyString();
+
+		ModItems.registerModItems();
 
 		LOGGER.info("[{}] v{} initialized by MARS Team.", MOD_ID, version);
 	}
