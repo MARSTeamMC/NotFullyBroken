@@ -18,7 +18,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
         for (@NotNull Item item : ModTags.Items.TOOLS_WITH_BROKEN_STATE) {
-            getOrCreateTagBuilder(ModTags.Items.HAS_BROKEN_STATE).add(item);
+            valueLookupBuilder(ModTags.Items.HAS_BROKEN_STATE).add(item);
         }
     }
 }

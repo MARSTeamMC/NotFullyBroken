@@ -50,6 +50,12 @@ public class ModTags {
                 net.minecraft.item.Items.IRON_HOE,
                 net.minecraft.item.Items.IRON_SWORD,
 
+                net.minecraft.item.Items.COPPER_PICKAXE,
+                net.minecraft.item.Items.COPPER_AXE,
+                net.minecraft.item.Items.COPPER_SHOVEL,
+                net.minecraft.item.Items.COPPER_HOE,
+                net.minecraft.item.Items.COPPER_SWORD,
+
                 net.minecraft.item.Items.MACE,
                 net.minecraft.item.Items.TRIDENT,
                 net.minecraft.item.Items.BOW,

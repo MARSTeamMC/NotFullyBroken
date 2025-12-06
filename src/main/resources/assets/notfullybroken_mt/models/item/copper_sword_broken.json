@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "notfullybroken_mt:item/copper_sword_broken"
+  }
+}
