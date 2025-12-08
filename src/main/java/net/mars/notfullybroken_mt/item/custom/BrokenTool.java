@@ -13,6 +13,6 @@ public class BrokenTool extends Item {
 
     @Override
     public Text getName(ItemStack stack) {
-        return super.getName(stack.getOrDefault(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT).copyFirstStack());
+        return Text.translatable(stack.getOrDefault(DataComponentTypes.CONTAINER, ContainerComponent.DEFAULT).copyFirstStack().getTranslationKey());
     }
 }

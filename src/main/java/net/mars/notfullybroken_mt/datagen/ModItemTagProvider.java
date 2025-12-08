@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.mars.notfullybroken_mt.util.ModTags;
 import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
