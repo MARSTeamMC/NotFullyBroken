@@ -8,7 +8,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 
 public class NotFullyBrokenHelper {
     public static boolean isInBrokenState(ItemStack stack) {
-        return stack.isIn(ModTags.Items.HAS_BROKEN_STATE) && stack.getDamage()==stack.getMaxDamage() && hasMending(stack);
+        return stack.isIn(ModTags.Items.HAS_BROKEN_STATE) && stack.getDamage()>=stack.getMaxDamage() && hasMending(stack);
     }
 
     public static boolean hasMending(ItemStack stack) {
