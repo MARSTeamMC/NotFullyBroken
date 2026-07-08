@@ -4,33 +4,31 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.mars.notfullybroken_mt.NotFullyBroken;
 import net.mars.notfullybroken_mt.item.ModItems;
 import net.mars.notfullybroken_mt.util.NotFullyBrokenHelper;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ContainerComponent;
-import net.minecraft.component.type.EnchantableComponent;
-import net.minecraft.component.type.ItemEnchantmentsComponent;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.item.*;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.ItemContainerContents;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
+import net.minecraft.world.level.ItemLike;
+import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -40,45 +38,43 @@ public abstract class ItemStackMixin {
     public abstract ItemStack copy();
 
     @Shadow
-    public abstract int getDamage();
-
-    @Shadow
     public abstract Item getItem();
 
     @Shadow
-    public abstract ItemStack copyComponentsToNewStack(ItemConvertible item, int count);
+    public abstract ItemStack transmuteCopy(ItemLike newItem, int newCount);
 
-    @Inject(method = "onDurabilityChange", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;shouldBreak()Z", shift = At.Shift.AFTER))
-    private void ItemBreakHandler(int damage, @Nullable ServerPlayerEntity player, Consumer<Item> breakCallback, CallbackInfo ci) {
+    @Inject(method = "applyDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;isBroken()Z", shift = At.Shift.AFTER))
+    private void ItemBreakHandler(int newDamage, @Nullable ServerPlayer player, Consumer<Item> onBreak, CallbackInfo ci) {
         if (player != null && NotFullyBrokenHelper.isInBrokenState(this.copy())) {
-            ItemStack brokenStack = this.copyComponentsToNewStack(ModItems.BROKEN_TOOL, 1);
+            ItemStack brokenStack = this.transmuteCopy(ModItems.BROKEN_TOOL, 1);
             List<ItemStack> newContents = List.of(this.copy());
-            ContainerComponent created = ContainerComponent.fromStacks(newContents);
-            brokenStack.set(DataComponentTypes.CONTAINER, created);
+            ItemContainerContents created = ItemContainerContents.fromItems(newContents);
+            brokenStack.set(DataComponents.CONTAINER, created);
 
-            brokenStack.set(DataComponentTypes.ITEM_MODEL, Identifier.of(NotFullyBroken.MOD_ID, Registries.ITEM.getId(this.getItem()).getPath()+"_broken"));
+            brokenStack.set(DataComponents.ITEM_MODEL, Identifier.fromNamespaceAndPath(NotFullyBroken.MOD_ID, BuiltInRegistries.ITEM.getKey(this.getItem()).getPath()+"_broken"));
 
-            RegistryEntryLookup<Enchantment> enchantmentLookup = player.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT);
-            RegistryEntry.Reference<Enchantment> mending = enchantmentLookup.getOrThrow(Enchantments.MENDING);
-            Set<Object2IntMap.Entry<RegistryEntry<Enchantment>>> stackEnchantments = brokenStack.getEnchantments().getEnchantmentEntries();
+            Holder<Enchantment> mending = player.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.MENDING);;
+            Set<Object2IntMap.Entry<Holder<Enchantment>>> stackEnchantments = brokenStack.getEnchantments().entrySet();
             ItemStack stackWithoutMending = brokenStack.copy();
-            stackWithoutMending.set(DataComponentTypes.ENCHANTMENTS, ItemEnchantmentsComponent.DEFAULT);
-            for (Object2IntMap.Entry<RegistryEntry<Enchantment>> enchantment : stackEnchantments) {
+            stackWithoutMending.set(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
+            for (Object2IntMap.Entry<Holder<Enchantment>> enchantment : stackEnchantments) {
                 if (!enchantment.getKey().equals(mending)) {
-                    stackWithoutMending.addEnchantment(enchantment.getKey(), enchantment.getIntValue());
+                    stackWithoutMending.enchant(enchantment.getKey(), enchantment.getIntValue());
                 }
             }
-            brokenStack.set(DataComponentTypes.STORED_ENCHANTMENTS, stackWithoutMending.getEnchantments());
-            brokenStack.set(DataComponentTypes.ENCHANTMENTS, ItemEnchantmentsComponent.DEFAULT);
-            brokenStack.addEnchantment(mending, 1);
+
+            brokenStack.set(DataComponents.STORED_ENCHANTMENTS, stackWithoutMending.getEnchantments());
+            brokenStack.set(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
+            brokenStack.enchant(mending, 1);
+            EnchantmentHelper.updateEnchantments(brokenStack, enchantments -> enchantments.upgrade(mending, 1));
 
             if (this.getItem().equals(Items.FISHING_ROD)) {
-                player.giveOrDropStack(brokenStack);
+                player.addItem(brokenStack);
             } else {
-                if (ItemStack.areEqual(player.getMainHandStack(), this.copy())) {
-                    player.setStackInHand(Hand.MAIN_HAND, brokenStack);
-                } else if (ItemStack.areEqual(player.getOffHandStack(), this.copy())) {
-                    player.setStackInHand(Hand.OFF_HAND, brokenStack);
+                if (ItemStack.isSameItem(player.getMainHandItem(), this.copy())) {
+                    player.setItemInHand(InteractionHand.MAIN_HAND, brokenStack);
+                } else if (ItemStack.isSameItem(player.getOffhandItem(), this.copy())) {
+                    player.setItemInHand(InteractionHand.OFF_HAND, brokenStack);
                 }
             }
         }

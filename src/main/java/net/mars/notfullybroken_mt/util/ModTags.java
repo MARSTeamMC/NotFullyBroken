@@ -1,80 +1,81 @@
 package net.mars.notfullybroken_mt.util;
 
 import net.mars.notfullybroken_mt.NotFullyBroken;
-import net.minecraft.item.Item;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class ModTags {
-    public static class Items {
+    public static class ItemTags {
         public static final TagKey<Item> HAS_BROKEN_STATE = createTag("has_broken_state");
 
         public static final List<@NotNull Item> TOOLS_WITH_BROKEN_STATE = List.of(
-                net.minecraft.item.Items.DIAMOND_PICKAXE,
-                net.minecraft.item.Items.DIAMOND_AXE,
-                net.minecraft.item.Items.DIAMOND_SHOVEL,
-                net.minecraft.item.Items.DIAMOND_HOE,
-                net.minecraft.item.Items.DIAMOND_SWORD,
-                net.minecraft.item.Items.DIAMOND_SPEAR,
+                Items.DIAMOND_PICKAXE,
+                Items.DIAMOND_AXE,
+                Items.DIAMOND_SHOVEL,
+                Items.DIAMOND_HOE,
+                Items.DIAMOND_SWORD,
+                Items.DIAMOND_SPEAR,
 
-                net.minecraft.item.Items.STONE_PICKAXE,
-                net.minecraft.item.Items.STONE_AXE,
-                net.minecraft.item.Items.STONE_SHOVEL,
-                net.minecraft.item.Items.STONE_HOE,
-                net.minecraft.item.Items.STONE_SWORD,
-                net.minecraft.item.Items.STONE_SPEAR,
+                Items.STONE_PICKAXE,
+                Items.STONE_AXE,
+                Items.STONE_SHOVEL,
+                Items.STONE_HOE,
+                Items.STONE_SWORD,
+                Items.STONE_SPEAR,
 
-                net.minecraft.item.Items.GOLDEN_PICKAXE,
-                net.minecraft.item.Items.GOLDEN_AXE,
-                net.minecraft.item.Items.GOLDEN_SHOVEL,
-                net.minecraft.item.Items.GOLDEN_HOE,
-                net.minecraft.item.Items.GOLDEN_SWORD,
-                net.minecraft.item.Items.GOLDEN_SPEAR,
+                Items.GOLDEN_PICKAXE,
+                Items.GOLDEN_AXE,
+                Items.GOLDEN_SHOVEL,
+                Items.GOLDEN_HOE,
+                Items.GOLDEN_SWORD,
+                Items.GOLDEN_SPEAR,
 
-                net.minecraft.item.Items.NETHERITE_PICKAXE,
-                net.minecraft.item.Items.NETHERITE_AXE,
-                net.minecraft.item.Items.NETHERITE_SHOVEL,
-                net.minecraft.item.Items.NETHERITE_HOE,
-                net.minecraft.item.Items.NETHERITE_SWORD,
-                net.minecraft.item.Items.NETHERITE_SPEAR,
+                Items.NETHERITE_PICKAXE,
+                Items.NETHERITE_AXE,
+                Items.NETHERITE_SHOVEL,
+                Items.NETHERITE_HOE,
+                Items.NETHERITE_SWORD,
+                Items.NETHERITE_SPEAR,
 
-                net.minecraft.item.Items.WOODEN_PICKAXE,
-                net.minecraft.item.Items.WOODEN_AXE,
-                net.minecraft.item.Items.WOODEN_SHOVEL,
-                net.minecraft.item.Items.WOODEN_HOE,
-                net.minecraft.item.Items.WOODEN_SWORD,
-                net.minecraft.item.Items.WOODEN_SPEAR,
+                Items.WOODEN_PICKAXE,
+                Items.WOODEN_AXE,
+                Items.WOODEN_SHOVEL,
+                Items.WOODEN_HOE,
+                Items.WOODEN_SWORD,
+                Items.WOODEN_SPEAR,
 
-                net.minecraft.item.Items.IRON_PICKAXE,
-                net.minecraft.item.Items.IRON_AXE,
-                net.minecraft.item.Items.IRON_SHOVEL,
-                net.minecraft.item.Items.IRON_HOE,
-                net.minecraft.item.Items.IRON_SWORD,
-                net.minecraft.item.Items.IRON_SPEAR,
+                Items.IRON_PICKAXE,
+                Items.IRON_AXE,
+                Items.IRON_SHOVEL,
+                Items.IRON_HOE,
+                Items.IRON_SWORD,
+                Items.IRON_SPEAR,
 
-                net.minecraft.item.Items.COPPER_PICKAXE,
-                net.minecraft.item.Items.COPPER_AXE,
-                net.minecraft.item.Items.COPPER_SHOVEL,
-                net.minecraft.item.Items.COPPER_HOE,
-                net.minecraft.item.Items.COPPER_SWORD,
-                net.minecraft.item.Items.COPPER_SPEAR,
+                Items.COPPER_PICKAXE,
+                Items.COPPER_AXE,
+                Items.COPPER_SHOVEL,
+                Items.COPPER_HOE,
+                Items.COPPER_SWORD,
+                Items.COPPER_SPEAR,
 
-                net.minecraft.item.Items.MACE,
-                net.minecraft.item.Items.TRIDENT,
-                net.minecraft.item.Items.BOW,
-                net.minecraft.item.Items.CROSSBOW,
-                net.minecraft.item.Items.FISHING_ROD,
-                net.minecraft.item.Items.FLINT_AND_STEEL,
-                net.minecraft.item.Items.BRUSH,
-                net.minecraft.item.Items.SHEARS
+                Items.MACE,
+                Items.TRIDENT,
+                Items.BOW,
+                Items.CROSSBOW,
+                Items.FISHING_ROD,
+                Items.FLINT_AND_STEEL,
+                Items.BRUSH,
+                Items.SHEARS
         );
 
         private static TagKey<Item> createTag(String name) {
-            return TagKey.of(RegistryKeys.ITEM, Identifier.of(NotFullyBroken.MOD_ID, name));
+            return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(NotFullyBroken.MOD_ID, name));
         }
     }
 }
